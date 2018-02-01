@@ -20,3 +20,5 @@ io.on('connection', function(client) {
 });
 
 server.listen(4200);
+
+console.log('run server on 4200');
