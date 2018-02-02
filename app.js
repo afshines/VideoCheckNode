@@ -17,6 +17,10 @@ io.on('connection', function(client) {
         client.emit('messages', 'Hello from server');
     });
 
+    client.on('messages', function(data) {
+        console.log(data);
+    });
+
 });
 
 server.listen(4200);
