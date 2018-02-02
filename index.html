@@ -8,8 +8,9 @@
 <div id="future"></div>
 <form id="form" id="chat_form">
     <input id="chat_input" type="text">
-    <input id="send" type="submit" value="Send">
+
 </form>
+<button id="send" onclick="send()">Send</button>
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -23,10 +24,10 @@
         alert(data);
     });
 
-    $('#send').onclick(function (e) {
-        e.preventDefault();
-        socket.emit('messages', $('#chat_input').val());
-    });
+    function send() {
+        //e.preventDefault();
+        socket.emit('messages', document.getElementById("chat_input").value);
+    }
 
 </script>
 </body>
