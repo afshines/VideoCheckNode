@@ -23,7 +23,6 @@ wsServer.on('request', function(request) {
     // Message received from a client
     connection.on('message', function(message) {
 
-        console.log(message);
         data = JSON.parse(message.utf8Data);
 
         switch (data.title)
