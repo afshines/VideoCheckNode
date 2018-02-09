@@ -8,9 +8,11 @@ var server = http.createServer(function(request, response) {
 
 server.listen(4200, function() { console.log("server ready on 4200") });
 
+
 var wsServer = new WebSocketServer({
     httpServer: server
 });
+
 
 wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
@@ -20,13 +22,33 @@ wsServer.on('request', function(request) {
 
     // Message received from a client
     connection.on('message', function(message) {
-        console.log('Message Received: ' + JSON.stringify(message));
-        console.log('Delivering to clients (' + clients.length + ')');
+
+        data = JSON.parse(message.utf8Data);
+
+        switch (data.title)
+        {
+            case 'connect':
+                console.log('Client Mobile Number :'+connection.remoteAddress);
+                console.log('Client Mobile Number :'+data.mobile);
+                  for (var i=0; i != clients.length; i++) {
+                     if(clients[i].remoteAddress === connection.remoteAddress)
+                     {
+                         clients[i].mobile = data.mobile;
+                         console.log('Join remoteAddress and mobile');
+                     }
+                  }
+
+                break;
+        }
+
+
+      //  console.log('Message Received: ' + JSON.stringify(message));
+       // console.log('Delivering to clients (' + clients.length + ')');
 
         // Broadcast the message
-        for (var i=0; i!=clients.length; i++) {
-            clients[i].send(JSON.stringify(message));
-        }
+      //  for (var i=0; i!=clients.length; i++) {
+      //      clients[i].send(JSON.stringify(message));
+      //  }
     });
 
     // Client disconnects, removing from list
