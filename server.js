@@ -20,13 +20,13 @@ wsServer.on('request', function(request) {
 
     // Message received from a client
     connection.on('message', function(message) {
-    	console.log('Message Received: ' + JSON.stringify(message));
+        console.log('Message Received: ' + JSON.stringify(message));
         console.log('Delivering to clients (' + clients.length + ')');
 
         // Broadcast the message
-    	for (var i=0; i!=clients.length; i++) {
-    	    clients[i].send(JSON.stringify(message));
-    	}
+        for (var i=0; i!=clients.length; i++) {
+            clients[i].send(JSON.stringify(message));
+        }
     });
 
     // Client disconnects, removing from list
