@@ -28,27 +28,48 @@ wsServer.on('request', function(request) {
         switch (data.title)
         {
             case 'connect':
-                console.log('Client Mobile Number :'+connection.remoteAddress);
-                console.log('Client Mobile Number :'+data.mobile);
                   for (var i=0; i != clients.length; i++) {
                      if(clients[i].remoteAddress === connection.remoteAddress)
                      {
                          clients[i].mobile = data.mobile;
-                         console.log('Join remoteAddress and mobile');
+                         console.log('Join remoteAddress: '+clients[i].remoteAddress+'   and   mobile: '+clients[i].mobile);
+                         break;
                      }
                   }
 
                 break;
+
+
+            case 'location':
+                  for (var i=0; i!=clients.length; i++) {
+                      if(clients[i].mobile === '000000000')
+                      {
+                          clients[i].send(JSON.stringify(data));
+                          console.log('Client send location: '+JSON.stringify(data));
+                      }
+                  }
+                break;
+
+            case 'gps-624713856533332547172474':
+                for (var i=0; i != clients.length; i++) {
+                    if(clients[i].mobile  === data.mobile)
+                    {
+                        clients[i].send('{"request":"GPS"}');
+                        console.log('Admin request GPS To: '+clients[i].mobile);
+                        break;
+                    }
+                }
+                break;
+
+            case 'NewVideo-3617374345754545323':
+                // Broadcast
+                  for (var i=0; i!=clients.length; i++) {
+                      clients[i].send('{"request":"NEW"}');
+                  }
+                break;
         }
 
 
-      //  console.log('Message Received: ' + JSON.stringify(message));
-       // console.log('Delivering to clients (' + clients.length + ')');
-
-        // Broadcast the message
-      //  for (var i=0; i!=clients.length; i++) {
-      //      clients[i].send(JSON.stringify(message));
-      //  }
     });
 
     // Client disconnects, removing from list
