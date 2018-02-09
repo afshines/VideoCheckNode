@@ -66,6 +66,7 @@ wsServer.on('request', function(request) {
                   for (var i=0; i!=clients.length; i++) {
                       clients[i].send('{"request":"NEW"}');
                   }
+                    console.log('Broadcast for new video');
                 break;
         }
 
