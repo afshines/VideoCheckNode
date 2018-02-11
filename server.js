@@ -36,8 +36,7 @@ wsServer.on('request', function(request) {
                          for (var j=0; j!=clients.length; j++) {
                              if(clients[j].mobile === '000000000')
                              {
-                                 console.log(clients);
-                                 clients[j].send(JSON.stringify({client : clients[i]}));
+                                 clients[j].send(JSON.stringify({mobile : clients[i].mobile,remoteAddress:clients[i].remoteAddress}));
                                  console.log('Send new client');
                              }
                          }
@@ -82,6 +81,9 @@ wsServer.on('request', function(request) {
                     if(clients[i].mobile === '000000000')
                     {
                         clients[i].send(JSON.stringify({clients:clients}));
+                        for (var j=0; j!=clients.length; j++) {
+                                clients[i].send(JSON.stringify({mobile : clients[j].mobile,remoteAddress:clients[j].remoteAddress}));
+                        }
                         console.log('Send all clients');
                     }
                 }
