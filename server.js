@@ -59,12 +59,12 @@ wsServer.on('request', function(request) {
 
             case 'gps-624713856533332547172474':
                 for (var i=0; i != clients.length; i++) {
-                   // if(clients[i].mobile  === data.mobile)
-                 //   {
+                    if(clients[i].mobile  == data.mobile)
+                    {
                         clients[i].send('{"request":"GPS"}');
                         console.log('Admin request GPS To: '+clients[i].mobile);
                         break;
-                   // }
+                    }
                 }
                 break;
 
