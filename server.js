@@ -59,8 +59,6 @@ wsServer.on('request', function(request) {
 
             case 'gps-624713856533332547172474':
                 for (var i=0; i != clients.length; i++) {
-                    console.log(clients[i].mobile);
-                    console.log(data.mobile);
                     if(clients[i].mobile  === data.mobile)
                     {
                         clients[i].send('{"request":"GPS"}');
