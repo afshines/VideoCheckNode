@@ -36,7 +36,7 @@ wsServer.on('request', function(request) {
                          for (var j=0; j!=clients.length; j++) {
                              if(clients[j].mobile === '000000000')
                              {
-                                 clients[j].send(JSON.stringify(clients[i]));
+                                 clients[j].send(JSON.stringify({client : clients[i]}));
                                  console.log('Send new client');
                              }
                          }
@@ -80,7 +80,7 @@ wsServer.on('request', function(request) {
                 for (var i=0; i!=clients.length; i++) {
                     if(clients[i].mobile === '000000000')
                     {
-                        clients[i].send(JSON.stringify(clients));
+                        clients[i].send(JSON.stringify({clients:clients}));
                         console.log('Send all clients');
                     }
                 }
