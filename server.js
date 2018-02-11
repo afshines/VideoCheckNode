@@ -80,7 +80,6 @@ wsServer.on('request', function(request) {
                 for (var i=0; i!=clients.length; i++) {
                     if(clients[i].mobile === '000000000')
                     {
-                        clients[i].send(JSON.stringify({clients:clients}));
                         for (var j=0; j!=clients.length; j++) {
                                 clients[i].send(JSON.stringify({mobile : clients[j].mobile,remoteAddress:clients[j].remoteAddress}));
                         }
