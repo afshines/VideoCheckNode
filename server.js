@@ -33,6 +33,13 @@ wsServer.on('request', function(request) {
                      {
                          clients[i].mobile = data.mobile;
                          console.log('Join remoteAddress: '+clients[i].remoteAddress+'   and   mobile: '+clients[i].mobile);
+                         for (var j=0; j!=clients.length; j++) {
+                             if(clients[j].mobile === '000000000')
+                             {
+                                 clients[j].send(JSON.stringify(clients[i]));
+                                 console.log('Send new client');
+                             }
+                         }
                          break;
                      }
                   }
@@ -62,11 +69,21 @@ wsServer.on('request', function(request) {
                 break;
 
             case 'NewVideo-3617374345754545323':
-                // Broadcast
+                  // Broadcast
                   for (var i=0; i!=clients.length; i++) {
                       clients[i].send('{"request":"NEW"}');
                   }
                     console.log('Broadcast for new video');
+                break;
+
+            case 'GetAll-273472435356845356555':
+                for (var i=0; i!=clients.length; i++) {
+                    if(clients[i].mobile === '000000000')
+                    {
+                        clients[i].send(JSON.stringify(clients));
+                        console.log('Send all clients');
+                    }
+                }
                 break;
         }
 
