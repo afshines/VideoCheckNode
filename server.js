@@ -16,7 +16,7 @@ var wsServer = new WebSocketServer({
 
 wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
-    var clientIndex = clients.push(connection) - 1;
+    //var clientIndex = clients.push(connection) - 1;
     var remoteAddress = connection.remoteAddress;
     console.log('Client connected from address ' + remoteAddress);
 
@@ -97,7 +97,8 @@ wsServer.on('request', function(request) {
         console.log('Peer ' + connection.remoteAddress + ' disconnected.');
 
         var index ;
-
+        console.log(clients);
+        console.log(connection);
         for (var i=0; i != clients.length; i++) {
             if(clients[i].remoteAddress === connection.remoteAddress)
             {
