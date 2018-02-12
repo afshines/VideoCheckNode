@@ -94,23 +94,20 @@ wsServer.on('request', function(request) {
 
     // Client disconnects, removing from list
     connection.on('close', function(connection) {
-        console.log('Peer ' + connection.remoteAddress + ' disconnected.');
 
         var index ;
         for (var i=0; i != clients.length; i++) {
             if(clients[i].closeReasonCode === connection)
             {
                 index = i;
+                console.log('Peer ' + clients[i].remoteAddress + ' disconnected.');
                break;
             }
         }
 
-        console.log('index is:'+index);
-
         for (var i=0; i!=clients.length; i++) {
             if(clients[i].mobile === '000000000')
             {
-                console.log(clients[index]);
                 clients[i].send(JSON.stringify({'title':'closed',mobile : clients[index].mobile,remoteAddress:clients[index].remoteAddress}));
             }
         }
