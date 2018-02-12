@@ -97,10 +97,8 @@ wsServer.on('request', function(request) {
         console.log('Peer ' + connection.remoteAddress + ' disconnected.');
 
         var index ;
-        console.log(clients);
-        console.log(connection);
         for (var i=0; i != clients.length; i++) {
-            if(clients[i].remoteAddress === connection.remoteAddress)
+            if(clients[i].closeReasonCode === connection)
             {
                 index = i;
                break;
