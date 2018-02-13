@@ -32,11 +32,13 @@ wsServer.on('request', function(request) {
                      if(clients[i].remoteAddress === connection.remoteAddress)
                      {
                          clients[i].mobile = data.mobile;
+                         clients[i].name = data.name;
+
                          console.log('Join remoteAddress: '+clients[i].remoteAddress+'   and   mobile: '+clients[i].mobile);
                          for (var j=0; j!=clients.length; j++) {
                              if(clients[j].mobile === '000000000')
                              {
-                                 clients[j].send(JSON.stringify({'title':'open',mobile : clients[i].mobile,remoteAddress:clients[i].remoteAddress}));
+                                 clients[j].send(JSON.stringify({'title':'open',mobile : clients[i].mobile,name:clients[i].name,remoteAddress:clients[i].remoteAddress}));
                                  console.log('Send new client');
                              }
                          }
@@ -81,7 +83,7 @@ wsServer.on('request', function(request) {
                     if(clients[i].mobile === '000000000')
                     {
                         for (var j=0; j!=clients.length; j++) {
-                                clients[i].send(JSON.stringify({'title':'open',mobile : clients[j].mobile,remoteAddress:clients[j].remoteAddress}));
+                                clients[i].send(JSON.stringify({'title':'open',mobile : clients[j].mobile,name:clients[j].name,remoteAddress:clients[j].remoteAddress}));
                         }
                         console.log('Send all clients');
                     }
