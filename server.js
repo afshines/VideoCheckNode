@@ -83,6 +83,7 @@ wsServer.on('request', function(request) {
                     if(clients[i].mobile === '000000000')
                     {
                         for (var j=0; j!=clients.length; j++) {
+                            console.log('closeReasonCode : '+clients[i].closeReasonCode);
                                 clients[i].send(JSON.stringify({'title':'open',mobile : clients[j].mobile,name:clients[j].name,remoteAddress:clients[j].remoteAddress}));
                         }
                         console.log('Send all clients');
