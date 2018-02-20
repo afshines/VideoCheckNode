@@ -97,8 +97,8 @@ wsServer.on('request', function(request) {
 
     // Client disconnects, removing from list
     connection.on('close', function() {
-        console.log('connection : '+connection);
-        console.log('websocket-key : '+connection.upgradeReq.headers['sec-websocket-key']);
+        console.log('connection : ');
+        console.log(connection);
       /*  var index ;
         for (var i=0; i != clients.length; i++) {
             if(clients[i].closeReasonCode === connection)
