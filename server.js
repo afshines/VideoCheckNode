@@ -44,7 +44,6 @@ wsServer.on('request', function(request) {
                                  console.log('Send new client');
                              }
                          }
-                         break;
                      }
                   }
 
@@ -98,24 +97,22 @@ wsServer.on('request', function(request) {
 
     // Client disconnects, removing from list
     connection.on('close', function() {
-        var index ;
         for (var i=0; i != clients.length; i++) {
             if(clients[i].remoteAddress === connection.remoteAddress)
             {
-                index = i;
                 console.log('Peer ' + clients[i].remoteAddress + ' disconnected.');
-                break;
+
+                for (var j=0; j!=clients.length; j++) {
+                    if(clients[j].mobile === '000000000')
+                    {
+                        clients[j].send(JSON.stringify({'title':'closed',mobile : clients[i].mobile,remoteAddress:clients[i].remoteAddress}));
+                    }
+                }
+
+                clients.splice(i, 1);
+
             }
         }
-
-        for (var i=0; i!=clients.length; i++) {
-            if(clients[i].mobile === '000000000')
-            {
-                clients[i].send(JSON.stringify({'title':'closed',mobile : clients[index].mobile,remoteAddress:clients[index].remoteAddress}));
-            }
-        }
-
-        clients.splice(index, 1);
 
     });
 });
