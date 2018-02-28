@@ -98,9 +98,8 @@ wsServer.on('request', function(request) {
     // Client disconnects, removing from list
     connection.on('close', function() {
         for (var i=0; i != clients.length; i++) {
-            console.log(clients[i]);
-            if(clients[i].remoteAddress ===
-                connection.remoteAddress)
+            console.log('clients.length : ' + clients.length);
+            if(clients[i].remoteAddress === connection.remoteAddress)
             {
                 console.log('Peer ' + clients[i].remoteAddress + ' disconnected.');
 
