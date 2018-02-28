@@ -16,7 +16,16 @@ var wsServer = new WebSocketServer({
 
 wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
-     clients.push(connection);
+
+    //check
+    for (var i=0; i != clients.length; i++) {
+        if(clients[i].remoteAddress === connection.remoteAddress)
+        {
+            clients.splice(i, 1);
+        }
+    }
+
+    clients.push(connection);
     var remoteAddress = connection.remoteAddress;
     console.log('Client connected from address ' + remoteAddress);
 
