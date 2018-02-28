@@ -97,6 +97,7 @@ wsServer.on('request', function(request) {
 
     // Client disconnects, removing from list
     connection.on('close', function() {
+        var removeList = [];
         for (var i=0; i != clients.length; i++) {
             console.log('clients.length : ' + clients.length);
             if(clients[i].remoteAddress === connection.remoteAddress)
@@ -110,10 +111,14 @@ wsServer.on('request', function(request) {
                     }
                 }
 
-                clients.splice(i, 1);
-
+                removeList.push(i);
             }
         }
 
+        for (var i =0;i != removeList.length ; i++)
+        {
+            console.log('remove  client  ip : ' + clients[removeList[i]].remoteAddress );
+            clients.splice(removeList[i], 1);
+        }
     });
 });
