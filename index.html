@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<h1>Hello World!</h1>
+<div id="future"></div>
+<form id="form" id="chat_form">
+    <input id="chat_input" type="text">
+
+</form>
+<button id="send" onclick="send()">Send</button>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    var socket = io.connect('ws://192.168.1.8:4200',{transports: ['websocket']});
+	
+    socket.on('connect', function(data) {
+        socket.emit('join', 'Hello World from client');
+    });
+
+    socket.on('messages', function(data) {
+        alert(data);
+    });
+
+    function send() {
+        //e.preventDefault();
+        socket.emit('messages', document.getElementById("chat_input").value);
+    }
+
+</script>
+</body>
+</html>
