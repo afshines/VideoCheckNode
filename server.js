@@ -5,8 +5,9 @@ var clients = [];
 var server = http.createServer(function(request, response) {
     // process http request
 });
+const uuidv1 = require('uuid/v1');
 
-server.listen(4200, function() { console.log("server ready on 4200") });
+server.listen(4200, function() { console.log("server ready on 4200"+uuidv1()) });
 
 
 var wsServer = new WebSocketServer({
