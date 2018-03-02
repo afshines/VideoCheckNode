@@ -1,13 +1,14 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 var clients = [];
+const uuidv1 = require('uuid/v1');
 
 var server = http.createServer(function(request, response) {
     // process http request
 });
-const uuidv1 = require('uuid/v1');
 
-server.listen(4200, function() { console.log("server ready on 4200"+uuidv1()) });
+
+server.listen(4200, function() { console.log("server ready on 4200") });
 
 
 var wsServer = new WebSocketServer({
@@ -17,6 +18,8 @@ var wsServer = new WebSocketServer({
 
 wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
+
+    connection.uuid = uuidv1();
 
     clients.push(connection);
     var remoteAddress = connection.remoteAddress;
@@ -31,7 +34,7 @@ wsServer.on('request', function(request) {
         {
             case 'connect':
                   for (var i=0; i != clients.length; i++) {
-                     if(clients[i].remoteAddress === connection.remoteAddress)
+                     if(clients[i].uuid === connection.uuid)
                      {
                          clients[i].mobile = data.mobile;
                          clients[i].name = data.name;
@@ -101,7 +104,7 @@ wsServer.on('request', function(request) {
         var removeList = [];
         for (var i=0; i != clients.length; i++) {
             console.log('clients.length : ' + clients.length);
-            if(clients[i].remoteAddress === connection.remoteAddress)
+            if(clients[i].uuid === connection.uuid)
             {
                 console.log('Peer ' + clients[i].remoteAddress + ' disconnected.');
 
