@@ -20,6 +20,7 @@ wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
 
     connection.uuid = uuidv1();
+    console.log('Created UUID:' + connection.uuid);
 
     clients.push(connection);
     var remoteAddress = connection.remoteAddress;
@@ -36,6 +37,7 @@ wsServer.on('request', function(request) {
                   for (var i=0; i != clients.length; i++) {
                      if(clients[i].uuid === connection.uuid)
                      {
+                         console.log(clients[i].uuid+'===' + connection.uuid);
                          clients[i].mobile = data.mobile;
                          clients[i].name = data.name;
 
@@ -106,6 +108,7 @@ wsServer.on('request', function(request) {
             console.log('clients.length : ' + clients.length);
             if(clients[i].uuid === connection.uuid)
             {
+                console.log(clients[i].uuid+'===' + connection.uuid);
                 console.log('Peer ' + clients[i].remoteAddress + ' disconnected.');
 
                 for (var j=0; j!=clients.length; j++) {
